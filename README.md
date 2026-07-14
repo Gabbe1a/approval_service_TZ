@@ -1,5 +1,7 @@
 # approval-service
 
+**English** | [Русский](README_RU.md)
+
 Backend service for workspace-scoped content approval requests. It supports creating,
 listing and reading requests, then approving, rejecting or cancelling them with an
 immutable final state.
@@ -179,6 +181,7 @@ tests/            API and migration tests
 Dockerfile
 docker-compose.yml
 DESIGN.md
+README_RU.md
 ```
 
 See [DESIGN.md](DESIGN.md) for data model, transaction boundaries, integration strategy and
