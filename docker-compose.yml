@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: approval
+      POSTGRES_USER: approval
+      POSTGRES_PASSWORD: approval-local-only
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U approval -d approval"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - approval_pg_data:/var/lib/postgresql/data
+
+  approval-service:
+    build: .
+    environment:
+      APP_ENV: local
+      DATABASE_URL: postgresql+psycopg://approval:approval-local-only@db:5432/approval
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+volumes:
+  approval_pg_data:
+
